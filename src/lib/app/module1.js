@@ -1,0 +1,1 @@
+var prjName=prjName||{};
