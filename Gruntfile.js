@@ -32,10 +32,15 @@ module.exports = function(grunt) {
         //Watch tasks
         watch: {
             scripts: {
-                files: ['src/lib/**/*.js'],
-                tasks: ['jshint:all']
+                files: ['src/lib/**/*.js', 'www/*.html'],
+                tasks: ['jshint:all'],
+                options: {
+                    livereload: true,
+                }
             }
         },
+
+        //Concat tasks
         concat: {
             options: {
                 separator: ';',
@@ -45,6 +50,41 @@ module.exports = function(grunt) {
                 dest: 'dist/lib/module.js'
             }
         },
+
+        //Connect tasks
+        connect: {
+            server: {
+                options: {
+                    //port: 9001,
+                    base: 'www',
+                    keepalive: true,
+                    livereload: true,
+                    /*
+                    middleware: [
+
+                        function myMiddleware(req, res, next) {
+                            res.end('Hello, Jasper!');
+                        }
+                    ],*/
+                    open: {
+                        target: 'http://localhost:8000/index.html', // target url to open
+                        //appName: 'index.html', // name of the app that opens, ie: open, start, xdg-open
+                        callback: function() {
+
+                        } // called when the app has opened
+                    }
+                }
+            }
+        },
+
+        //Clean up tasks
+        clean: {
+            build: {
+                src: ["cleanupFolder/*.*"]
+            }
+        }
+
+
     });
 
     grunt.event.on('watch', function(action, filepath, target) {
@@ -56,9 +96,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+
     //grunt.registerTask('default', ['imagemin']);
     //grunt.registerTask('default', ['less']);
     //grunt.registerTask('default', ['jshint']);
     //grunt.registerTask('default', ['watch']);
-    grunt.registerTask('default',['concat']);
+    //grunt.registerTask('default', ['concat']);
+    //grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['clean']);
 };
