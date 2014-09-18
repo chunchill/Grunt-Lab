@@ -82,7 +82,19 @@ module.exports = function(grunt) {
             build: {
                 src: ["cleanupFolder/*.*"]
             }
-        }
+        },
+
+        //Copy tasks
+        copy: {
+            main: {
+                expand: true,
+                cwd: 'Source/',
+                src: '**',
+                dest: 'Destination/',
+                flatten: true,
+                filter: 'isFile',
+            },
+        },
 
 
     });
@@ -98,6 +110,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     //grunt.registerTask('default', ['imagemin']);
     //grunt.registerTask('default', ['less']);
@@ -105,5 +118,6 @@ module.exports = function(grunt) {
     //grunt.registerTask('default', ['watch']);
     //grunt.registerTask('default', ['concat']);
     //grunt.registerTask('default', ['watch']);
-    grunt.registerTask('default', ['clean']);
+    //grunt.registerTask('default', ['clean']);
+    grunt.registerTask('default', ['copy']);
 };
