@@ -96,6 +96,21 @@ module.exports = function(grunt) {
             },
         },
 
+        useminPrepare: {
+            html: 'usemin/index.html',
+            options: {
+                dest: 'usemin/dist'
+            }
+        },
+        usemin: {
+            html: ['usemin/index.html']
+        },
+        copy: {
+            html: {
+                src: './usemin/index.html',
+                dest: 'usemin/dist/index.html'
+            }
+        }
 
     });
 
@@ -103,6 +118,7 @@ module.exports = function(grunt) {
         grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
     });
 
+/*
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -111,7 +127,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-
+    grunt.loadNpmTasks('grunt-usemin');
+*/
+    require('load-grunt-tasks')(grunt);
     //grunt.registerTask('default', ['imagemin']);
     //grunt.registerTask('default', ['less']);
     //grunt.registerTask('default', ['jshint']);
@@ -119,5 +137,13 @@ module.exports = function(grunt) {
     //grunt.registerTask('default', ['concat']);
     //grunt.registerTask('default', ['watch']);
     //grunt.registerTask('default', ['clean']);
-    grunt.registerTask('default', ['copy']);
+    //grunt.registerTask('default', ['useminPrepare', 'concat:generated', 'usemin']);
+    grunt.registerTask('build',[
+        'copy:html',
+        'useminPrepare',
+        'concat:generated',
+        'uglify:generated',
+        'cssmin:generated',
+        'usemin'
+    ]);
 };
