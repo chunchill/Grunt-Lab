@@ -1,0 +1,6 @@
+function libs (argument) {
+	// body...
+}
+function page (argument) {
+	// body...
+}
