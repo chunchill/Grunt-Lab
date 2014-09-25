@@ -110,6 +110,18 @@ module.exports = function(grunt) {
                 src: './usemin/index.html',
                 dest: 'usemin/dist/index.html'
             }
+        },
+
+        fileblocks: {
+            dist: {
+                /* Configure a single source file */
+                src: './fileblocks/index.html',
+                blocks: {
+                    'app': {
+                        src: './fileblocks/js/*.js'
+                    }
+                }
+            }
         }
 
     });
@@ -118,7 +130,7 @@ module.exports = function(grunt) {
         grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
     });
 
-/*
+    /*
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -138,12 +150,16 @@ module.exports = function(grunt) {
     //grunt.registerTask('default', ['watch']);
     //grunt.registerTask('default', ['clean']);
     //grunt.registerTask('default', ['useminPrepare', 'concat:generated', 'usemin']);
-    grunt.registerTask('build',[
-        'copy:html',
-        'useminPrepare',
-        'concat:generated',
-        'uglify:generated',
-        'cssmin:generated',
-        'usemin'
-    ]);
+    /*
+        grunt.registerTask('build', [
+            'copy:html',
+            'useminPrepare',
+            'concat:generated',
+            'uglify:generated',
+            'cssmin:generated',
+            'usemin'
+        ]);
+        */
+    grunt.registerTask('default', ['fileblocks']);
+
 };
